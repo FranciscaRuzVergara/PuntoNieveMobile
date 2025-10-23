@@ -15,8 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.proyectonieve.ui.components.Menu
+import com.example.proyectonieve.ui.screens.FormularioScreen
 import com.example.proyectonieve.ui.screens.Home
 import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -25,23 +29,32 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ProyectoNieveTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(),
-                    topBar={
+                val navController = rememberNavController()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
                         CenterAlignedTopAppBar(
-                            title={
-                                Text(text="Punto Nieve",
+                            title = {
+                                Text(
+                                    text = "Punto Nieve",
                                     maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis)
-                                },
-                            actions= {
-                                    Menu()
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            },
+                            actions = {
+                                Menu(navController) // ← le pasamos el navController
                             }
                         )
                     }
-                ){ innerPadding ->
-                    Home(
-                        modifier=Modifier.padding(innerPadding)
-                    )
+                ) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable("home") { Home() }
+                        composable("formulario") { FormularioScreen() }
+                    }
                 }
             }
         }

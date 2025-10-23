@@ -3,9 +3,7 @@ package com.example.proyectonieve.ui.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -19,11 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+
+
+
 
 
 
 @Composable
-fun Menu() {
+fun Menu(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
 
     Box(
@@ -39,20 +41,38 @@ fun Menu() {
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("Profile") },
+                text = { Text("Perfil") },
                 leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
                 onClick = { /* Do something... */ }
             )
             DropdownMenuItem(
-                text = { Text("Settings") },
-                leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                text = { Text("Nosotros") },
+                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
                 onClick = { /* Do something... */ }
             )
+            DropdownMenuItem(
+                text = { Text("Pedidos") },
+                leadingIcon = { Icon(Icons.Outlined.MailOutline, contentDescription = null) },
+                onClick = { /* Do something... */ }
+            )
+            DropdownMenuItem(
+                text = { Text("Beneficios") },
+                leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
+                onClick = { expanded = false
+                    navController.navigate("formulario")}
+            )
+
+            DropdownMenuItem(
+                text = { Text("Carrito de compras") },
+                leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
+                onClick = {/* do something...*/}
+            )
+
             HorizontalDivider()
 
             DropdownMenuItem(
-                text = { Text("About") },
-                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                text = { Text("Ajustes") },
+                leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                 onClick = { /* Do something... */ }
             )
 
