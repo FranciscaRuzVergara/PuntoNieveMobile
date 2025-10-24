@@ -23,37 +23,6 @@ import coil.compose.AsyncImage
 import com.example.proyectonieve.model.Product
 import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
 
-
-/***
-@Composable
-fun ProductCard() {
-    Card() {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "product.name", style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.height(4.dp))
-            Text(text = "product.price", style = MaterialTheme.typography.titleMedium, color = Color.Green)
-            Spacer(Modifier.height(8.dp))
-            Text(text = "product.description", style = MaterialTheme.typography.bodyMedium)
-        }
-    }
-}
-***/
-
-/****
-@Composable
-fun ProductCard(product: Product, onProductClick: (Product) -> Unit) {
-    Card(onClick = { onProductClick(product) }) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = product.name, style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.height(4.dp))
-            Text(text = "$${product.price}", style = MaterialTheme.typography.titleMedium, color = Color.Green)
-            Spacer(Modifier.height(8.dp))
-            Text(text = product.description, style = MaterialTheme.typography.bodyMedium)
-        }
-    }
-}
-***/
-
 @Composable
 fun ProductCard(product: Product) {
 
