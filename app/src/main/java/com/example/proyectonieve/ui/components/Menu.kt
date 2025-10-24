@@ -18,10 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-
-
-
-
+import com.example.proyectonieve.ui.Routes
 
 
 @Composable
@@ -46,9 +43,12 @@ fun Menu(navController: NavController) {
                 onClick = { /* Do something... */ }
             )
             DropdownMenuItem(
-                text = { Text("Nosotros") },
+                text = { Text("Mision") },
                 leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
-                onClick = { /* Do something... */ }
+                onClick = {
+                    expanded= false
+                    navController.navigate((Routes.Mision))
+                }
             )
             DropdownMenuItem(
                 text = { Text("Pedidos") },
@@ -59,7 +59,7 @@ fun Menu(navController: NavController) {
                 text = { Text("Beneficios") },
                 leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
                 onClick = { expanded = false
-                    navController.navigate("formulario")}
+                    navController.navigate(Routes.Formulario)}
             )
 
             DropdownMenuItem(

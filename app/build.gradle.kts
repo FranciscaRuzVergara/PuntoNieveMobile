@@ -54,6 +54,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation(libs.protolite.well.known.types)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.compose.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

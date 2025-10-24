@@ -21,6 +21,8 @@ import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.screens.Mision
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -42,21 +44,30 @@ class MainActivity : ComponentActivity() {
                                 )
                             },
                             actions = {
-                                Menu(navController) // ← le pasamos el navController
+                                Menu(navController)
                             }
                         )
                     }
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "home",
+                        startDestination = Routes.Home,
                         modifier = Modifier.padding(innerPadding)
-                    ) {
-                        composable("home") { Home() }
-                        composable("formulario") { FormularioScreen() }
+                    ){
+                        composable(Routes.Home,){
+                            Home(navController)
+                        }
+                        composable( Routes.Mision, ) {
+                                Mision(navController)
+                            }
+                        composable( Routes.Formulario, ) {
+                            FormularioScreen(navController)
+                            }
+
+                        }
                     }
                 }
             }
         }
     }
-}
+

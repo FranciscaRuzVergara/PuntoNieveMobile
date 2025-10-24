@@ -17,6 +17,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.utils.validarApellidos
 import com.example.proyectonieve.ui.utils.validarDireccion
 import com.example.proyectonieve.ui.utils.validarEdad
@@ -24,7 +26,7 @@ import com.example.proyectonieve.ui.utils.validarRut
 
 
 @Composable
-fun FormularioScreen(modifier: Modifier = Modifier) {
+fun FormularioScreen(navController: NavController) {
 
     var nombre by remember { mutableStateOf("") }
     var apellidos by remember { mutableStateOf("") }
@@ -47,12 +49,12 @@ fun FormularioScreen(modifier: Modifier = Modifier) {
                 brush = Brush.verticalGradient(
                     colors = listOf(Color.White, Color.LightGray)
                 )
-            )
-            .then(modifier),
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(40.dp))
 
+        /****
         Text(
             text = "Punto Nieve",
             style = TextStyle(
@@ -65,8 +67,9 @@ fun FormularioScreen(modifier: Modifier = Modifier) {
                 )
             )
         )
+        ****/
 
-        Spacer(Modifier.height(25.dp))
+        //Spacer(Modifier.height(25.dp))
 
         Column {
             OutlinedTextField(
@@ -229,6 +232,6 @@ fun FormularioScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, name = "Formulario Preview")
 @Composable
 fun FormularioScreenPreview() {
-    FormularioScreen()
+    FormularioScreen(navController = rememberNavController())
 }
 
