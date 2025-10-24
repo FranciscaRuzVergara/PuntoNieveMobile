@@ -1,13 +1,18 @@
 package com.example.proyectonieve.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,12 +60,14 @@ fun Home(navController: NavController) {
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(Color.White, Color.LightGray)
+                    colors = listOf(Color.White, Color.White)
                 )
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item { AsyncImage(
+        item {
+            Spacer(Modifier.height(20.dp))
+            AsyncImage(
             model = "https://thumbs.dreamstime.com/b/panadería-italiana-28379528.jpg?w=768",
             contentDescription = "Banner principal del Home",
             modifier = Modifier
@@ -81,6 +88,21 @@ fun Home(navController: NavController) {
                     )
                 )
             )
+            Spacer(Modifier.height(30.dp))
+        }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Text("Categoria 1")
+                VerticalDivider(color = MaterialTheme.colorScheme.secondary)
+                Text("Categoria 2")
+                VerticalDivider(color = MaterialTheme.colorScheme.secondary)
+                Text("Categoria 3")
+            }
             Spacer(Modifier.height(30.dp))
         }
         items(products) { product ->

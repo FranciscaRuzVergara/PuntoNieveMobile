@@ -45,7 +45,7 @@ fun Mision(navController: NavController) {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFFE0F7FA),
+                        Color(0xFFFFFFFF),
                         Color.White,
                         Color.White
                     )

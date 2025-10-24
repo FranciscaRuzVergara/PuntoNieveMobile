@@ -34,7 +34,7 @@ fun FormularioScreen(navController: NavController) {
     var edad by remember { mutableStateOf("") }
     var direccion by remember {mutableStateOf("")}
     var correo by remember { mutableStateOf("") }
-    var click by remember { mutableStateOf("") }
+    var checked by remember { mutableStateOf(false) }
     //Validaciones jijis
     var rutError by remember { mutableStateOf(false) }
     var edadError by remember { mutableStateOf(false)}
@@ -190,18 +190,22 @@ fun FormularioScreen(navController: NavController) {
 
             Spacer(Modifier.height(25.dp))
 
-            OutlinedTextField(
-                value = click,
-                onValueChange = { click = it },
-                label = { Text("Check") },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 35.dp)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { checked = it }
+                )
+                Text(
+                    "Minimal checkbox"
+                )
+            }
+            Text(
+                if (checked) "Checkbox is checked" else "Checkbox is unchecked"
             )
 
             Spacer(Modifier.height(25.dp))
-
 
             Button(
                 onClick = {

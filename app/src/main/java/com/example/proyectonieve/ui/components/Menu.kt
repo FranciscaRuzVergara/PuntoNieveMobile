@@ -43,6 +43,12 @@ fun Menu(navController: NavController) {
                 onClick = { /* Do something... */ }
             )
             DropdownMenuItem(
+                text = { Text("Home") },
+                leadingIcon = { Icon(Icons.Outlined.Home, contentDescription = null) },
+                onClick = { expanded = false
+                    navController.navigate(Routes.Home)}
+            )
+            DropdownMenuItem(
                 text = { Text("Mision") },
                 leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
                 onClick = {
@@ -51,17 +57,17 @@ fun Menu(navController: NavController) {
                 }
             )
             DropdownMenuItem(
-                text = { Text("Pedidos") },
-                leadingIcon = { Icon(Icons.Outlined.MailOutline, contentDescription = null) },
-                onClick = { /* Do something... */ }
-            )
-            DropdownMenuItem(
                 text = { Text("Beneficios") },
                 leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
                 onClick = { expanded = false
                     navController.navigate(Routes.Formulario)}
             )
-
+            /********
+            DropdownMenuItem(
+                text = { Text("Pedidos") },
+                leadingIcon = { Icon(Icons.Outlined.MailOutline, contentDescription = null) },
+                onClick = { /* Do something... */ }
+            )
             DropdownMenuItem(
                 text = { Text("Carrito de compras") },
                 leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
@@ -75,6 +81,7 @@ fun Menu(navController: NavController) {
                 leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                 onClick = { /* Do something... */ }
             )
+            ***/
 
         }
     }
