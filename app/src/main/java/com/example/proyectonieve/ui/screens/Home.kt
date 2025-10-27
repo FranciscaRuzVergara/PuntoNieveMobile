@@ -97,11 +97,11 @@ fun Home(navController: NavController) {
                     .height(IntrinsicSize.Min),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text("Categoria 1")
+                Text("Trozos")
                 VerticalDivider(color = MaterialTheme.colorScheme.secondary)
-                Text("Categoria 2")
+                Text("Fondant")
                 VerticalDivider(color = MaterialTheme.colorScheme.secondary)
-                Text("Categoria 3")
+                Text("Bizcocho")
             }
             Spacer(Modifier.height(30.dp))
         }

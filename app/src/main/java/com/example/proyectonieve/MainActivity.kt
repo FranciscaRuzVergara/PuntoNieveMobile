@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
 
 class MainActivity : ComponentActivity() {
@@ -68,6 +69,9 @@ class MainActivity : ComponentActivity() {
                             }
                         composable( Routes.Formulario, ) {
                             FormularioScreen(navController)
+                            }
+                        composable( Routes.Cotizacion, ) {
+                            Cotizacion(navController)
                             }
 
                         }

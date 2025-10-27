@@ -62,6 +62,12 @@ fun Menu(navController: NavController) {
                 onClick = { expanded = false
                     navController.navigate(Routes.Formulario)}
             )
+            DropdownMenuItem(
+                text = { Text("Cotizacion") },
+                leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
+                onClick = { expanded = false
+                    navController.navigate(Routes.Cotizacion)}
+            )
             /********
             DropdownMenuItem(
                 text = { Text("Pedidos") },

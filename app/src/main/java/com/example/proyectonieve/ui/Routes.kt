@@ -5,4 +5,5 @@ object Routes {
     var Home = "home"
     var Mision = "mision"
     var Formulario = "formulario"
+    var Cotizacion = "cotizacion"
 }
