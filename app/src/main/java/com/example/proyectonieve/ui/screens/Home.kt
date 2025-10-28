@@ -46,7 +46,7 @@ val products = listOf(
     ),
     Product(
          3,
-         "Selva Negra",
+         "Torta Frutilla",
          14990,
          "Pastel de bizcocho de chocolate con cereza",
          "https://www.rama.com.co/-/media/Project/Upfield/Brands/Rama/Rama-CO/Assets/Recipes/sync-img/5c3923a9-ab27-4d26-aaa1-9500924c666f.png?rev=96b46b00ed0a4007ace051f2b1161f54&w=900"
