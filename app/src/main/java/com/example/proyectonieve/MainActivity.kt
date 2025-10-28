@@ -24,8 +24,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.Routes.Login
 import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
+import com.example.proyectonieve.ui.screens.LoginScreen
+
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -58,9 +61,12 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = Routes.Home,
+                        startDestination = Routes.Login,
                         modifier = Modifier.padding(innerPadding)
                     ){
+                        composable(Routes.Login) {
+                            LoginScreen(navController)
+                        }
                         composable(Routes.Home,){
                             Home(navController)
                         }

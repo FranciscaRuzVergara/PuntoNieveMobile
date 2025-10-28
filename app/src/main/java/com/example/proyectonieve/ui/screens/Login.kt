@@ -17,9 +17,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.proyectonieve.ui.Routes
+
+
+
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -77,7 +83,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             Spacer(Modifier.height(20.dp))
 
             Button(
-                onClick = {
+                onClick = { if (email.isNotBlank() && password.isNotBlank()) {
+                    navController.navigate(Routes.Home)
+                }
+
 
                 },
                 modifier = Modifier
@@ -121,6 +130,6 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, name = "Login Preview")
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(navController = rememberNavController())
 }
 

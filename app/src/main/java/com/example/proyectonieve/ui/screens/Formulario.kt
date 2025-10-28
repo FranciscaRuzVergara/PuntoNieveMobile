@@ -124,12 +124,16 @@ fun FormularioScreen(navController: NavController) {
 
             OutlinedTextField(
                 value = rut,
-                onValueChange = {
-                    rut = it
-                    rutError = !validarRut(it)
+                onValueChange = { input ->
+                    val limpio = input.filter { it.isDigit() || it == 'k' || it == 'K'||it == '-' }
+                        .take(10)
+
+                    rut = limpio
+                    rutError = !validarRut(limpio)
                 },
                 label = { Text("RUT") },
                 isError = rutError,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)

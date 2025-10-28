@@ -106,7 +106,7 @@ fun Mision(navController: NavController) {
                     )
 
                     Text(
-                        text = "LOREM_IPSUM_MEDIUM",
+                        text = "Endulzar momentos con productos caseros, frescos y hechos con cariño",
                         style = TextStyle(
                             fontSize = 17.sp,
                             textAlign = TextAlign.Center
@@ -144,7 +144,7 @@ fun Mision(navController: NavController) {
                         modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
                     )
                     Text(
-                        text = "LOREM_IPSUM_MEDIUM",
+                        text = "Ser una pastelería reconocida por su calidad, cercanía y sabor auténtico",
                         style = TextStyle(
                             fontSize = 17.sp,
                             textAlign = TextAlign.Center
@@ -181,7 +181,7 @@ fun Mision(navController: NavController) {
                         modifier = Modifier.padding(top = 24.dp, bottom = 24.dp)
                     )
                     Text(
-                        text = "LOREM_IPSUM_MEDIUM",
+                        text = "La pastelería Punto Nieve nació como un proyecto de emprendimiento en mayo de 2025, con el propósito de ofrecer una amplia variedad de pasteles y tortas caseras, elaboradas con dedicación e ingredientes frescos",
                         style = TextStyle(
                             fontSize = 17.sp,
                             textAlign = TextAlign.Center
