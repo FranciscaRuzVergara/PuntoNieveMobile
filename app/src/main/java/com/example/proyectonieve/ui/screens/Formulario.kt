@@ -175,7 +175,6 @@ fun FormularioScreen(navController: NavController) {
                     direccionError = !validarDireccion(it)
                 },
                 label = { Text("Dirección") },
-                visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
