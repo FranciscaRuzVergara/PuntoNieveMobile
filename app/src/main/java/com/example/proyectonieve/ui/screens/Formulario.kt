@@ -3,6 +3,7 @@ package com.example.proyectonieve.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +22,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.utils.validarApellidos
+import com.example.proyectonieve.ui.utils.validarCaracteres
+import com.example.proyectonieve.ui.utils.validarCorreo
 import com.example.proyectonieve.ui.utils.validarDireccion
 import com.example.proyectonieve.ui.utils.validarEdad
 import com.example.proyectonieve.ui.utils.validarRut
@@ -36,10 +40,12 @@ fun FormularioScreen(navController: NavController) {
     var correo by remember { mutableStateOf("") }
     var checked by remember { mutableStateOf(false) }
     //Validaciones jijis
+    var nombreError by remember { mutableStateOf(false) }
     var rutError by remember { mutableStateOf(false) }
     var edadError by remember { mutableStateOf(false)}
     var apellidosError by remember {mutableStateOf(false)}
     var direccionError by remember {mutableStateOf(false)}
+    var correoError by remember { mutableStateOf(false) }
 
 
     Column(
@@ -72,10 +78,20 @@ fun FormularioScreen(navController: NavController) {
         //Spacer(Modifier.height(25.dp))
 
         Column {
+
             OutlinedTextField(
                 value = nombre,
-                onValueChange = { nombre = it },
-                label = { Text("Nombre") },
+                onValueChange = {
+                    nombre = it
+                    nombreError = !validarCaracteres(it)
+                },
+                label = { Text("Nombre Cliente") },
+                isError = nombreError,
+                supportingText = {
+                    if (nombreError) {
+                        Text("Solo letras y espacios.", color = MaterialTheme.colorScheme.error)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
@@ -180,9 +196,18 @@ fun FormularioScreen(navController: NavController) {
 
             OutlinedTextField(
                 value = correo,
-                onValueChange = { correo = it },
-                label = { Text("Correo") },
-                visualTransformation = PasswordVisualTransformation(),
+                onValueChange = {
+                    correo = it
+                    correoError = it.isNotBlank() && !validarCorreo(it)
+                },
+                label = { Text("Correo Electrónico") },
+                isError = correoError,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                supportingText = {
+                    if (correoError) {
+                        Text("Formato de correo inválido.", color = MaterialTheme.colorScheme.error)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
@@ -192,18 +217,19 @@ fun FormularioScreen(navController: NavController) {
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 35.dp)
             ) {
                 Checkbox(
                     checked = checked,
                     onCheckedChange = { checked = it }
                 )
                 Text(
-                    "Minimal checkbox"
+                    "Acepto Terminos y condiciones"
                 )
             }
-            Text(
-                if (checked) "Checkbox is checked" else "Checkbox is unchecked"
-            )
+
 
             Spacer(Modifier.height(25.dp))
 
