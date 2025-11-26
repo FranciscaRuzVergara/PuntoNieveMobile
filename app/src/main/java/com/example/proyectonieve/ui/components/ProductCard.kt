@@ -20,11 +20,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
-import com.example.proyectonieve.model.Product
+import com.example.proyectonieve.data.Producto
 import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
 
 @Composable
-fun ProductCard(product: Product) {
+fun ProductCard(product: Producto) {
 
     Card(
         modifier = Modifier
@@ -36,8 +36,8 @@ fun ProductCard(product: Product) {
             modifier = Modifier.fillMaxWidth()
         ) {
             AsyncImage(
-                model = product.imageUrl,
-                contentDescription = "Imagen de ${product.name}",
+                model = product.imagen,
+                contentDescription = "Imagen de ${product.nombreProducto}",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(100.dp)
@@ -51,7 +51,7 @@ fun ProductCard(product: Product) {
             ) {
 
                 Text(
-                    text = product.name,
+                    text = product.nombreProducto, //
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -60,7 +60,7 @@ fun ProductCard(product: Product) {
                 Spacer(Modifier.height(4.dp))
 
                 Text(
-                    text = product.description,
+                    text = product.descripcion ?: "",
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -70,7 +70,7 @@ fun ProductCard(product: Product) {
                 Spacer(Modifier.height(8.dp))
 
                 Text(
-                    text = "$${product.price}",
+                    text = "$${product.precio}",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.ExtraBold
                     )

@@ -1,9 +1,10 @@
 package com.example.proyectonieve.model
 
 data class Product(
-    val id: Int,
-    val name: String,
-    val price: Int,
-    val description: String,
-    val imageUrl: String
+    val idProducto: Long?,
+    val precio: Int,
+    val nombreProducto: String,
+    val descripcion: String?,
+    val imagen: String?,
+    val categoria: String?
 )

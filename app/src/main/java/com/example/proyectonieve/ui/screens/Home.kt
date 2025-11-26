@@ -14,6 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,34 +31,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import androidx.navigation.NavController
-import com.example.proyectonieve.model.Product
 import com.example.proyectonieve.ui.components.ProductCard
+import com.example.proyectonieve.data.Producto
+import com.example.proyectonieve.ui.network.RetrofitInstance
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.lazy.items
 
-val products = listOf(
-    Product(
-        1,
-        "Tarta de Queso",
-        2500,
-        "Clásica Tarta de queso.",
-        "https://th.bing.com/th/id/R.634fa577892c3ff6717ddc8c97a396d9?rik=6pyiG1yVAsgFcA&riu=http%3a%2f%2fwww.taste.com.au%2fimages%2frecipes%2fagt%2f2008%2f05%2f19621.jpg&ehk=5yT6egtaJbt%2bAOKsKjm5tJmh3i%2b0OcKZcPvEIHuQy%2fQ%3d&risl=&pid=ImgRaw&r=0"
-    ),
-    Product(
-        2,
-         "Tarta de Chocolate",
-        15990,
-         "Rica tarta de chocolate amargo, ideal para compartir.",
-         "https://www.chocolatto.co/wp-content/uploads/2020/07/IMG_0170-scaled.jpg"
-    ),
-    Product(
-         3,
-         "Torta Frutilla",
-         14990,
-         "Pastel de bizcocho de chocolate con cereza",
-         "https://www.rama.com.co/-/media/Project/Upfield/Brands/Rama/Rama-CO/Assets/Recipes/sync-img/5c3923a9-ab27-4d26-aaa1-9500924c666f.png?rev=96b46b00ed0a4007ace051f2b1161f54&w=900"
-    )
-)
+
+
+
 @Composable
 fun Home(navController: NavController) {
+
+    var products by remember { mutableStateOf<List<Producto>>(emptyList()) }
+
+
+    var error by remember { mutableStateOf<String?>(null) }
+
+
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            try {
+                products = RetrofitInstance.productoApi.listarProductos()
+            } catch (e: Exception) {
+                error = "Error cargando productos: ${e.message}"
+            }
+        }
+    }
 
     LazyColumn(
         modifier = Modifier
