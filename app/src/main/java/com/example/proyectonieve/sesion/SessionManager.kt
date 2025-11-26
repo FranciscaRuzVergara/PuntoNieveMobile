@@ -8,10 +8,11 @@ object SessionManager {
     var correoLogeado = mutableStateOf<String?>(null)
     var rolLogeado = mutableStateOf<String?>(null)
 
-    val clientes = listOf(
+    var clientes = listOf(
         "fran@nieve.cl",
         "felipe@nieve.cl"
     )
+
 
     fun esCliente(): Boolean {
         return rolLogeado.value == "Cliente" &&
