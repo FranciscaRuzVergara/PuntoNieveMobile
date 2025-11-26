@@ -6,4 +6,6 @@ object Routes {
     var Mision = "mision"
     var Formulario = "formulario"
     var Cotizacion = "cotizacion"
+    var Camara = "camara"
+
 }

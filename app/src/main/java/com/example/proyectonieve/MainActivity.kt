@@ -24,7 +24,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.Routes.Camara
 import com.example.proyectonieve.ui.Routes.Login
+import com.example.proyectonieve.ui.screens.CameraScreen
 import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
 import com.example.proyectonieve.ui.screens.LoginScreen
@@ -79,6 +81,9 @@ class MainActivity : ComponentActivity() {
                         composable( Routes.Cotizacion, ) {
                             Cotizacion(navController)
                             }
+                        composable(Routes.Camara) {
+                            CameraScreen()
+                        }
 
                         }
                     }

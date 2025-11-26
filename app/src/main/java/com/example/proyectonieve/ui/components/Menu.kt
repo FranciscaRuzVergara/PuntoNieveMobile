@@ -18,7 +18,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.proyectonieve.sesion.SessionManager
 import com.example.proyectonieve.ui.Routes
+import androidx.compose.material.icons.filled.*
+
+
+
+
 
 
 @Composable
@@ -48,25 +54,55 @@ fun Menu(navController: NavController) {
                 onClick = { expanded = false
                     navController.navigate(Routes.Home)}
             )
+
+
+
+            if (SessionManager.esCliente()) {
+                DropdownMenuItem(
+                    text = { Text("Misión") },
+                    leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.Mision)
+                    }
+                )
+
+                DropdownMenuItem(
+                    text = { Text("Beneficios") },
+                    leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.Formulario)
+                    }
+                )
+
+                DropdownMenuItem(
+                    text = { Text("Cotización") },
+                    leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.Cotizacion)
+                    }
+                )
+            }
+
+
+            if (!SessionManager.esCliente()) {
+                    }
+
+            //DropdownMenuItem(
+                //text = { Text("Productos") },
+               // leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
+                //onClick = {
+                    //expanded = false
+                    //navController.navigate(Routes.Productos)
+                //}
+           // )
             DropdownMenuItem(
-                text = { Text("Mision") },
-                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
-                onClick = {
-                    expanded= false
-                    navController.navigate((Routes.Mision))
-                }
-            )
-            DropdownMenuItem(
-                text = { Text("Beneficios") },
-                leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
-                onClick = { expanded = false
-                    navController.navigate(Routes.Formulario)}
-            )
-            DropdownMenuItem(
-                text = { Text("Cotizacion") },
+                text = { Text("Camara") },
                 leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
                 onClick = { expanded = false
-                    navController.navigate(Routes.Cotizacion)}
+                    navController.navigate(Routes.Camara)}
             )
             /********
             DropdownMenuItem(

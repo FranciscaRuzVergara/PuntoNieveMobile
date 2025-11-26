@@ -88,18 +88,8 @@ fun Home(navController: NavController) {
             Spacer(Modifier.height(30.dp))
 
         }
-        item {
-            if (SessionManager.esCliente()) {
-                Button(onClick = { navController.navigate(Routes.Home) }) { Text("Home") }
-                Button(onClick = { navController.navigate(Routes.Cotizacion) }) { Text("Cotización") }
-                Button(onClick = { navController.navigate(Routes.Formulario) }) { Text("Beneficios") }
-                Button(onClick = { navController.navigate(Routes.Mision) }) { Text("Misión") }
 
-            } else {
-                // Button(onClick = { navController.navigate(Routes.AgregarProducto) }) { Text("agregar producto") }
 
-            }
-        }
         item {
             Row(
                 modifier = Modifier
