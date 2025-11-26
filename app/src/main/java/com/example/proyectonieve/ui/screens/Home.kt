@@ -96,7 +96,7 @@ fun Home(navController: NavController) {
                 Button(onClick = { navController.navigate(Routes.Mision) }) { Text("Misión") }
 
             } else {
-                // Button(onClick = { navController.navigate(Routes.AgregarProducto) }) { Text("agregar producto") }
+                Button(onClick = { navController.navigate(Routes.AgregarProducto) }) { Text("agregar producto") }
 
             }
         }
