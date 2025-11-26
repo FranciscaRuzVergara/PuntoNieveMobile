@@ -46,7 +46,8 @@ fun Menu(navController: NavController) {
             DropdownMenuItem(
                 text = { Text("Perfil") },
                 leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
-                onClick = { /* Do something... */ }
+                onClick = {  expanded = false
+                    navController.navigate(Routes.Perfil) }
             )
             DropdownMenuItem(
                 text = { Text("Home") },

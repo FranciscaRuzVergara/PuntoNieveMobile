@@ -26,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
 import com.example.proyectonieve.ui.Routes.Camara
 import com.example.proyectonieve.ui.Routes.Login
+import com.example.proyectonieve.ui.Routes.Perfil
 
 import com.example.proyectonieve.ui.screens.CameraScreen
 
@@ -34,6 +35,7 @@ import com.example.proyectonieve.ui.screens.AgregarProducto
 import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
 import com.example.proyectonieve.ui.screens.LoginScreen
+import com.example.proyectonieve.ui.screens.PerfilScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -92,6 +94,10 @@ class MainActivity : ComponentActivity() {
                             AgregarProducto(navController)
 
                             }
+                        composable(Routes.Perfil) {
+                            PerfilScreen(navController)
+
+                        }
 
                         }
                     }

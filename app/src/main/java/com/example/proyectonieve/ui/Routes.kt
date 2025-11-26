@@ -8,5 +8,6 @@ object Routes {
     var Cotizacion = "cotizacion"
     var Camara = "camara"
     var AgregarProducto = "agregar"
+    var Perfil = "perfil"
 
 }
