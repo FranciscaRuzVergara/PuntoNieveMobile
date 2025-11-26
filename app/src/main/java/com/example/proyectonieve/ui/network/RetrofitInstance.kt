@@ -12,4 +12,11 @@ object RetrofitInstance {
         .build()
 
     val userApi: UserApi = retrofit.create(UserApi::class.java)
+
+    val productoApi: ProductoApi = retrofit.create(ProductoApi::class.java)
+
+    val pedidoApi: PedidoApi = retrofit.create(PedidoApi::class.java)
+
+    val carritoApi: CarritoApi = retrofit.create(CarritoApi::class.java)
+
 }

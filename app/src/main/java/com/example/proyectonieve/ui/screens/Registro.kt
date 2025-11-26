@@ -25,7 +25,7 @@ fun Registro() {
         Button(onClick = {
             scope.launch {
                 try {
-                    val us = User(correo, password, rut, "USUARIO")
+                    val us = User(correo, password, rut, "Cliente")
                     val response = RetrofitInstance.userApi.registerUser(us)
                     result = "Usuario creado: ${response.correo}"
                 } catch (e: Exception) {
