@@ -20,9 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
-
-
-
+import com.example.proyectonieve.sesion.SessionManager
 
 @Composable
 fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
@@ -83,11 +81,23 @@ fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
             Spacer(Modifier.height(20.dp))
 
             Button(
-                onClick = { if (email.isNotBlank() && password.isNotBlank()) {
-                    navController.navigate(Routes.Home)
-                }
+                onClick = {
+                    if (email.isNotBlank() && password.isNotBlank()) {
 
+                        SessionManager.correoLogeado.value = email
 
+                        SessionManager.rolLogeado.value =
+                            if (SessionManager.clientes.contains(email))
+                                "Cliente"
+                            else
+                                "Admin"
+
+                        if (SessionManager.esCliente()) {
+                            navController.navigate(Routes.Home)
+                        } else {
+                            navController.navigate(Routes.Home)
+                        }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,24 +122,17 @@ fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
             Spacer(Modifier.height(10.dp))
 
             TextButton(
-                onClick = {
-
-                },
+                onClick = {},
                 modifier = Modifier.padding(horizontal = 35.dp)
             ) {
                 Text("¿No tienes cuenta? Regístrate")
-
             }
         }
-
     }
-
 }
-
 
 @Preview(showBackground = true, name = "Login Preview")
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(navController = rememberNavController())
 }
-
