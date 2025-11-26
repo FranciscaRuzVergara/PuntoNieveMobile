@@ -62,7 +62,7 @@ fun CameraScreen() {
         Button(
             onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) },
             modifier = Modifier
-                .padding(bottom = 40.dp) // separarlo un poco del borde
+                .padding(bottom = 40.dp)
         ) {
             Text("Tomar foto")
         }

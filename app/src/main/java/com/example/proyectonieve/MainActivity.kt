@@ -26,11 +26,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
 import com.example.proyectonieve.ui.Routes.Camara
 import com.example.proyectonieve.ui.Routes.Login
-<<<<<<< HEAD
+
 import com.example.proyectonieve.ui.screens.CameraScreen
-=======
+
 import com.example.proyectonieve.ui.screens.AgregarProducto
->>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
+
 import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
 import com.example.proyectonieve.ui.screens.LoginScreen
@@ -69,30 +69,30 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = Routes.Login,
                         modifier = Modifier.padding(innerPadding)
-                    ){
+                    ) {
                         composable(Routes.Login) {
                             LoginScreen(navController)
                         }
-                        composable(Routes.Home,){
+                        composable(Routes.Home,) {
                             Home(navController)
                         }
-                        composable( Routes.Mision, ) {
-                                Mision(navController)
-                            }
-                        composable( Routes.Formulario, ) {
+                        composable(Routes.Mision,) {
+                            Mision(navController)
+                        }
+                        composable(Routes.Formulario,) {
                             FormularioScreen(navController)
-                            }
-                        composable( Routes.Cotizacion, ) {
+                        }
+                        composable(Routes.Cotizacion,) {
                             Cotizacion(navController)
-                            }
-<<<<<<< HEAD
+                        }
+
                         composable(Routes.Camara) {
                             CameraScreen()
-=======
-                        composable( Routes.AgregarProducto, ) {
-                            AgregarProducto(navController)
->>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
                         }
+                            composable(Routes.AgregarProducto,) {
+                                AgregarProducto(navController)
+
+                            }
 
                         }
                     }
@@ -100,4 +100,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 
