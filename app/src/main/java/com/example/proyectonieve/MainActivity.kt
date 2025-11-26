@@ -26,7 +26,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
 import com.example.proyectonieve.ui.Routes.Camara
 import com.example.proyectonieve.ui.Routes.Login
+<<<<<<< HEAD
 import com.example.proyectonieve.ui.screens.CameraScreen
+=======
+import com.example.proyectonieve.ui.screens.AgregarProducto
+>>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
 import com.example.proyectonieve.ui.screens.Cotizacion
 import com.example.proyectonieve.ui.screens.Mision
 import com.example.proyectonieve.ui.screens.LoginScreen
@@ -81,8 +85,13 @@ class MainActivity : ComponentActivity() {
                         composable( Routes.Cotizacion, ) {
                             Cotizacion(navController)
                             }
+<<<<<<< HEAD
                         composable(Routes.Camara) {
                             CameraScreen()
+=======
+                        composable( Routes.AgregarProducto, ) {
+                            AgregarProducto(navController)
+>>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
                         }
 
                         }

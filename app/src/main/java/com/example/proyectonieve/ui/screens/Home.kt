@@ -89,6 +89,11 @@ fun Home(navController: NavController) {
 
         }
 
+<<<<<<< HEAD
+=======
+            } else {
+                Button(onClick = { navController.navigate(Routes.AgregarProducto) }) { Text("agregar producto") }
+>>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
 
         item {
             Row(
