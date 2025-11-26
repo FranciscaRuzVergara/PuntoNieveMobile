@@ -88,22 +88,21 @@ fun Menu(navController: NavController) {
 
 
             if (!SessionManager.esCliente()) {
-                    }
-
-            //DropdownMenuItem(
-                //text = { Text("Productos") },
-               // leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
-                //onClick = {
-                    //expanded = false
-                    //navController.navigate(Routes.Productos)
-                //}
-           // )
+            DropdownMenuItem(
+                text = { Text("Productos") },
+               leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    navController.navigate(Routes.AgregarProducto)
+                }
+            )
             DropdownMenuItem(
                 text = { Text("Camara") },
                 leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
                 onClick = { expanded = false
                     navController.navigate(Routes.Camara)}
             )
+            }
             /********
             DropdownMenuItem(
                 text = { Text("Pedidos") },
