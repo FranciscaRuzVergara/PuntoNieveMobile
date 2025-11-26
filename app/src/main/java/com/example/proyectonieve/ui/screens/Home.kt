@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -23,8 +22,6 @@ import coil.compose.AsyncImage
 import androidx.navigation.NavController
 import com.example.proyectonieve.ui.components.ProductCard
 import com.example.proyectonieve.data.Producto
-import com.example.proyectonieve.sesion.SessionManager
-import com.example.proyectonieve.ui.Routes
 import com.example.proyectonieve.ui.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
@@ -46,7 +43,6 @@ fun Home(navController: NavController) {
             }
         }
     }
-
 
     LazyColumn(
         modifier = Modifier
@@ -84,16 +80,8 @@ fun Home(navController: NavController) {
                     )
                 )
             )
-
             Spacer(Modifier.height(30.dp))
-
         }
-
-<<<<<<< HEAD
-=======
-            } else {
-                Button(onClick = { navController.navigate(Routes.AgregarProducto) }) { Text("agregar producto") }
->>>>>>> ee3df8151425c3859ba71105f7a3cb0d38e2aa2d
 
         item {
             Row(

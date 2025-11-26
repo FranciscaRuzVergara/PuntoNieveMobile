@@ -85,12 +85,11 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.Cotizacion,) {
                             Cotizacion(navController)
                         }
-
                         composable(Routes.Camara) {
                             CameraScreen()
                         }
-                            composable(Routes.AgregarProducto,) {
-                                AgregarProducto(navController)
+                        composable(Routes.AgregarProducto,) {
+                            AgregarProducto(navController)
 
                             }
 
