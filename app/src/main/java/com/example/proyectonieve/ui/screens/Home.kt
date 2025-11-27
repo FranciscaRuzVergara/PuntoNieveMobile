@@ -22,17 +22,51 @@ import coil.compose.AsyncImage
 import androidx.navigation.NavController
 import com.example.proyectonieve.ui.components.ProductCard
 import com.example.proyectonieve.data.Producto
+import com.example.proyectonieve.ui.components.ClimaCard
 import com.example.proyectonieve.ui.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
 @Composable
 fun Home(navController: NavController) {
 
+    var temperature by remember { mutableStateOf<Double?>(null) }
+    var isLoadingWeather by remember { mutableStateOf(true) }
+    var weatherError by remember { mutableStateOf<String?>(null) }
+
     var products by remember { mutableStateOf<List<Producto>>(emptyList()) }
     var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
+        scope.launch {
+            try {
+                val API_KEY = "ezOHlkSoXN86sZm3"
+                val LAT = "-33.4569"
+                val LON = "-70.6483"
+                val ASL = 556
+
+                isLoadingWeather = true
+
+                val response = RetrofitInstance.climaApi.getWeather(
+                    apiKey = API_KEY,
+                    lat = LAT,
+                    lon = LON,
+                    asl = ASL
+                )
+                val temp = response.data_1h?.temperature?.firstOrNull()
+                if (temp != null) {
+                    temperature = temp
+                } else {
+                    weatherError = "Estructura de clima inválida"
+                }
+            } catch (e: Exception) {
+                println("Error al obtener clima: ${e.message}")
+                weatherError = "No se pudo cargar el clima."
+            } finally {
+                isLoadingWeather = false
+            }
+        }
+
         scope.launch {
             try {
                 val response = RetrofitInstance.productoApi.listarProductos()
@@ -64,6 +98,17 @@ fun Home(navController: NavController) {
                     .fillMaxWidth()
                     .height(220.dp)
             )
+        }
+
+        /***Tarjeta clima**/
+        item {
+            Spacer(Modifier.height(20.dp))
+            ClimaCard(
+                temperature = temperature,
+                isLoading = isLoadingWeather,
+                error = weatherError
+            )
+            Spacer(Modifier.height(20.dp))
         }
 
         item {
