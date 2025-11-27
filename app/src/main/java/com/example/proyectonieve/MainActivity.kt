@@ -12,31 +12,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.proyectonieve.ui.components.Menu
-import com.example.proyectonieve.ui.screens.FormularioScreen
-import com.example.proyectonieve.ui.screens.Home
-import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.proyectonieve.sesion.SessionManager
 import com.example.proyectonieve.ui.Routes
-import com.example.proyectonieve.ui.Routes.Camara
-import com.example.proyectonieve.ui.Routes.Login
-import com.example.proyectonieve.ui.Routes.Perfil
-
-import com.example.proyectonieve.ui.screens.CameraScreen
-
+import com.example.proyectonieve.ui.components.Menu
 import com.example.proyectonieve.ui.screens.AgregarProducto
-
+import com.example.proyectonieve.ui.screens.CameraScreen
 import com.example.proyectonieve.ui.screens.Cotizacion
-import com.example.proyectonieve.ui.screens.Mision
+import com.example.proyectonieve.ui.screens.FormularioScreen
+import com.example.proyectonieve.ui.screens.Home
 import com.example.proyectonieve.ui.screens.LoginScreen
+import com.example.proyectonieve.ui.screens.Mision
 import com.example.proyectonieve.ui.screens.PerfilScreen
-
+import com.example.proyectonieve.ui.theme.ProyectoNieveTheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +44,6 @@ class MainActivity : ComponentActivity() {
                         CenterAlignedTopAppBar(
                             colors = TopAppBarDefaults.topAppBarColors(
                                 containerColor = MaterialTheme.colorScheme.primary,
-                                //titleContentColor = MaterialTheme.colorScheme.primary,
                             ),
                             title = {
                                 Text(
@@ -75,35 +66,33 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.Login) {
                             LoginScreen(navController)
                         }
-                        composable(Routes.Home,) {
+                        composable(Routes.Home) {
                             Home(navController)
                         }
-                        composable(Routes.Mision,) {
+                        composable(Routes.Mision) {
                             Mision(navController)
                         }
-                        composable(Routes.Formulario,) {
+                        composable(Routes.Formulario) {
                             FormularioScreen(navController)
                         }
-                        composable(Routes.Cotizacion,) {
+                        composable(Routes.Cotizacion) {
                             Cotizacion(navController)
                         }
                         composable(Routes.Camara) {
                             CameraScreen()
                         }
-                        composable(Routes.AgregarProducto,) {
+                        composable(Routes.AgregarProducto) {
                             AgregarProducto(navController)
-
-                            }
-                        composable(Routes.Perfil) {
-                            PerfilScreen(navController)
-
                         }
-
+                        composable(Routes.Perfil) {
+                            PerfilScreen(
+                                navController = navController,
+                                user = SessionManager.usuarioActual
+                            )
                         }
                     }
                 }
             }
         }
     }
-
-
+}

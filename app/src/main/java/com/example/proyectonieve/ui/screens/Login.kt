@@ -21,12 +21,18 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectonieve.ui.Routes
 import com.example.proyectonieve.sesion.SessionManager
+import com.example.proyectonieve.ui.network.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Composable
 fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var errorMsg by remember { mutableStateOf<String?>(null) }
 
     Column(
         modifier = Modifier
@@ -57,6 +63,7 @@ fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
         Spacer(Modifier.height(30.dp))
 
         Column {
+
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -80,22 +87,39 @@ fun LoginScreen(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(Modifier.height(20.dp))
 
+
+            errorMsg?.let {
+                Text(
+                    text = it,
+                    color = Color.Red,
+                    modifier = Modifier.padding(horizontal = 35.dp)
+                )
+                Spacer(Modifier.height(10.dp))
+            }
+
             Button(
                 onClick = {
                     if (email.isNotBlank() && password.isNotBlank()) {
 
-                        SessionManager.correoLogeado.value = email
 
-                        SessionManager.rolLogeado.value =
-                            if (SessionManager.clientes.contains(email))
-                                "Cliente"
-                            else
-                                "Admin"
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val user = RetrofitInstance.userApi.getUserByCorreo(email)
 
-                        if (SessionManager.esCliente()) {
-                            navController.navigate(Routes.Home)
-                        } else {
-                            navController.navigate(Routes.Home)
+
+                                withContext(Dispatchers.Main) {
+                                    SessionManager.usuarioActual = user
+                                    SessionManager.correoLogeado.value = user.correo
+                                    SessionManager.rolLogeado.value = user.rol
+
+                                    navController.navigate(Routes.Home)
+                                }
+
+                            } catch (e: Exception) {
+                                withContext(Dispatchers.Main) {
+                                    errorMsg = "Usuario no encontrado"
+                                }
+                            }
                         }
                     }
                 },

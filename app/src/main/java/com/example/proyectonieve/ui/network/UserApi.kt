@@ -18,6 +18,11 @@ interface UserApi {
         suspend fun buscarUsuario(@Path("id") id: Long): User
 
 
+        @GET("api/user/correo/{correo}")
+        suspend fun getUserByCorreo(@Path("correo") correo: String): User
+
+
+
         @PUT("api/user/{id}")
         suspend fun actualizarUsuario(@Path("id") id: Long, @Body user: User): User
 

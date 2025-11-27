@@ -34,31 +34,56 @@ fun Menu(navController: NavController) {
     Box(
         modifier = Modifier,
         contentAlignment = Alignment.TopEnd
-
     ) {
         IconButton(onClick = { expanded = !expanded }) {
             Icon(Icons.Default.MoreVert, contentDescription = "More options")
         }
+
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
+
             DropdownMenuItem(
                 text = { Text("Perfil") },
                 leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
-                onClick = {  expanded = false
-                    navController.navigate(Routes.Perfil) }
+                onClick = {
+                    expanded = false
+                    navController.navigate(Routes.Perfil)
+                }
             )
             DropdownMenuItem(
                 text = { Text("Home") },
                 leadingIcon = { Icon(Icons.Outlined.Home, contentDescription = null) },
-                onClick = { expanded = false
-                    navController.navigate(Routes.Home)}
+                onClick = {
+                    expanded = false
+                    navController.navigate(Routes.Home)
+                }
             )
 
+            DropdownMenuItem(
+                text = { Text("Cámara") },
+                leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    navController.navigate(Routes.Camara)
+                }
+            )
+
+            if (SessionManager.esAdmin()) {
+
+                DropdownMenuItem(
+                    text = { Text("Productos") },
+                    leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.AgregarProducto)
+                    }
+                )
+            }
 
 
-            if (SessionManager.esCliente()) {
+            else {
                 DropdownMenuItem(
                     text = { Text("Misión") },
                     leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
@@ -86,24 +111,10 @@ fun Menu(navController: NavController) {
                     }
                 )
             }
+        }
+    }
+}
 
-
-            if (!SessionManager.esCliente()) {
-            DropdownMenuItem(
-                text = { Text("Productos") },
-               leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
-                onClick = {
-                    expanded = false
-                    navController.navigate(Routes.AgregarProducto)
-                }
-            )
-            DropdownMenuItem(
-                text = { Text("Camara") },
-                leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
-                onClick = { expanded = false
-                    navController.navigate(Routes.Camara)}
-            )
-            }
             /********
             DropdownMenuItem(
                 text = { Text("Pedidos") },
@@ -125,6 +136,5 @@ fun Menu(navController: NavController) {
             )
             ***/
 
-        }
-    }
-}
+
+

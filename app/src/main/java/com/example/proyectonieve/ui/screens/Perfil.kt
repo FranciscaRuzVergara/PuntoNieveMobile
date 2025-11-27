@@ -1,54 +1,46 @@
 package com.example.proyectonieve.ui.screens
 
-
-
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.runtime.remember
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.proyectonieve.ui.utils.validarApellidos
 import com.example.proyectonieve.ui.utils.validarCaracteres
+import com.example.proyectonieve.ui.utils.validarApellidos
 import com.example.proyectonieve.ui.utils.validarCorreo
-import com.example.proyectonieve.ui.utils.validarDireccion
-import com.example.proyectonieve.ui.utils.validarEdad
 import com.example.proyectonieve.ui.utils.validarRut
-
+import com.example.proyectonieve.data.User
 
 @Composable
-fun PerfilScreen(navController: NavController) {
+fun PerfilScreen(
+    navController: NavController,
+    user: User? = null
+) {
+    var nombres by remember { mutableStateOf(user?.nombres ?: "") }
+    var apellidos by remember { mutableStateOf(user?.apellidos ?: "") }
+    var correo by remember { mutableStateOf(user?.correo ?: "") }
+    var rut by remember { mutableStateOf(user?.rut ?: "") }
+    var password by remember { mutableStateOf("") }
+    var rol by remember { mutableStateOf(user?.rol ?: "") }
 
-    var nombre by remember { mutableStateOf("") }
-    var apellidos by remember { mutableStateOf("") }
-    var rut by remember { mutableStateOf("") }
-    var edad by remember { mutableStateOf("") }
-    var direccion by remember {mutableStateOf("")}
-    var correo by remember { mutableStateOf("") }
-    var checked by remember { mutableStateOf(false) }
-    //Validaciones jijis
-    var nombreError by remember { mutableStateOf(false) }
-    var rutError by remember { mutableStateOf(false) }
-    var edadError by remember { mutableStateOf(false)}
-    var apellidosError by remember {mutableStateOf(false)}
-    var direccionError by remember {mutableStateOf(false)}
+    var nombresError by remember { mutableStateOf(false) }
+    var apellidosError by remember { mutableStateOf(false) }
     var correoError by remember { mutableStateOf(false) }
-
+    var rutError by remember { mutableStateOf(false) }
+    var passwordError by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -60,37 +52,21 @@ fun PerfilScreen(navController: NavController) {
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Spacer(Modifier.height(40.dp))
-
-        /****
-        Text(
-        text = "Punto Nieve",
-        style = TextStyle(
-        fontSize = 34.sp,
-        fontWeight = FontWeight.ExtraBold,
-        shadow = Shadow(
-        color = Color.Gray,
-        offset = Offset(1f, 1f),
-        blurRadius = 2f
-        )
-        )
-        )
-         ****/
-
-        //Spacer(Modifier.height(25.dp))
 
         Column {
 
             OutlinedTextField(
-                value = nombre,
+                value = nombres,
                 onValueChange = {
-                    nombre = it
-                    nombreError = !validarCaracteres(it)
+                    nombres = it
+                    nombresError = !validarCaracteres(it)
                 },
-                label = { Text("Nombre Cliente") },
-                isError = nombreError,
+                label = { Text("Nombres") },
+                isError = nombresError,
                 supportingText = {
-                    if (nombreError) {
+                    if (nombresError) {
                         Text("Solo letras y espacios.", color = MaterialTheme.colorScheme.error)
                     }
                 },
@@ -108,26 +84,26 @@ fun PerfilScreen(navController: NavController) {
                     apellidosError = !validarApellidos(it)
                 },
                 label = { Text("Apellidos") },
+                isError = apellidosError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
             )
             if (apellidosError) {
                 Text(
-                    text = "solo letras.  EJ: Felipe Cañete",
+                    text = "Solo letras. Ej: Felipe Cañete",
                     color = Color.Red,
                     fontSize = 14.sp,
                     modifier = Modifier.padding(horizontal = 35.dp)
                 )
             }
 
-
             Spacer(Modifier.height(25.dp))
 
             OutlinedTextField(
                 value = rut,
                 onValueChange = { input ->
-                    val limpio = input.filter { it.isDigit() || it == 'k' || it == 'K'||it == '-' }
+                    val limpio = input.filter { it.isDigit() || it == 'k' || it == 'K' || it == '-' }
                         .take(10)
 
                     rut = limpio
@@ -149,55 +125,7 @@ fun PerfilScreen(navController: NavController) {
                 )
             }
 
-
-
             Spacer(Modifier.height(25.dp))
-
-            OutlinedTextField(
-                value = edad,
-                onValueChange = {
-                    edad = it
-                    edadError = !validarEdad(it.toIntOrNull() ?: -1)
-                },
-                label = { Text("Edad") },
-                isError = edadError,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 35.dp)
-            )
-            if (edadError) {
-                Text(
-                    text = "edad no valida, no se puede exedir de los 110 años o usar caracteres/letras",
-                    color = Color.Red,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(horizontal = 35.dp)
-                )
-            }
-
-            Spacer(Modifier.height(25.dp))
-
-            OutlinedTextField(
-                value = direccion,
-                onValueChange = {
-                    direccion = it
-                    direccionError = !validarDireccion(it)
-                },
-                label = { Text("Dirección") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 35.dp)
-            )
-            if (direccionError) {
-                Text(
-                    text = "direccion no valida",
-                    color = Color.Red,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(horizontal = 35.dp)
-                )
-            }
-
-
-
-
-            Spacer(Modifier.height(30.dp))
 
             OutlinedTextField(
                 value = correo,
@@ -220,37 +148,46 @@ fun PerfilScreen(navController: NavController) {
 
             Spacer(Modifier.height(25.dp))
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                    passwordError = it.isNotEmpty() && it.length < 6
+                },
+                label = { Text("Nueva contraseña (opcional)") },
+                isError = passwordError,
+                visualTransformation = PasswordVisualTransformation(),
+                supportingText = {
+                    if (passwordError) {
+                        Text("Mínimo 6 caracteres.", color = MaterialTheme.colorScheme.error)
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
-            ) {
-                Checkbox(
-                    checked = checked,
-                    onCheckedChange = { checked = it }
-                )
-                Text(
-                    "Acepto Terminos y condiciones"
-                )
-            }
-
+            )
 
             Spacer(Modifier.height(25.dp))
 
-            Button(
-                onClick = {
+            OutlinedTextField(
+                value = rol,
+                onValueChange = {},
+                label = { Text("Rol") },
+                readOnly = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 35.dp)
+            )
 
-                },
+            Spacer(Modifier.height(30.dp))
+
+            Button(
+                onClick = { },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
                     .height(52.dp),
                 shape = RoundedCornerShape(25.dp),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 4.dp,
-                    pressedElevation = 8.dp
-                ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.DarkGray,
                     contentColor = Color.White
@@ -264,7 +201,3 @@ fun PerfilScreen(navController: NavController) {
         }
     }
 }
-
-
-
-
