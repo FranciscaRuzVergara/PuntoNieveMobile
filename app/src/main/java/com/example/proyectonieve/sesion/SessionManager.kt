@@ -11,12 +11,15 @@ object SessionManager {
     var correoLogeado = mutableStateOf<String?>(null)
     var rolLogeado = mutableStateOf<String?>(null)
 
+
+
     var Admins = listOf(
         "fran@nieve.cl",
         "felipe@nieve.cl"
     )
 
-
+    fun getCorreo(): String? = correoLogeado.value
+    fun getRol(): String? = rolLogeado.value
     fun esAdmin(): Boolean {
         return rolLogeado.value == "Admin" &&
                 Admins.contains(correoLogeado.value)
