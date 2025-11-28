@@ -21,15 +21,15 @@ import androidx.navigation.NavController
 import com.example.proyectonieve.sesion.SessionManager
 import com.example.proyectonieve.ui.Routes
 import androidx.compose.material.icons.filled.*
-
-
-
-
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun Menu(navController: NavController) {
+fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
     var expanded by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier,
@@ -57,9 +57,13 @@ fun Menu(navController: NavController) {
                 leadingIcon = { Icon(Icons.Outlined.Home, contentDescription = null) },
                 onClick = {
                     expanded = false
-                    navController.navigate(Routes.Home)
+                    scope.launch {
+                        snackbarHostState.showSnackbar("Dirigiéndose al Home")
+                        navController.navigate(Routes.Home)
+                    }
                 }
             )
+
 
             DropdownMenuItem(
                 text = { Text("Cámara") },

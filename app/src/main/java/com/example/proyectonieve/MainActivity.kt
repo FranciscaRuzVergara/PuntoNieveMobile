@@ -10,8 +10,11 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.compose.NavHost
@@ -38,6 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProyectoNieveTheme {
                 val navController = rememberNavController()
+                val snackbarHostState = remember { SnackbarHostState() }
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
@@ -53,10 +57,12 @@ class MainActivity : ComponentActivity() {
                                 )
                             },
                             actions = {
-                                Menu(navController)
+                                Menu(navController,snackbarHostState)
                             }
                         )
-                    }
+
+                    },  snackbarHost = { SnackbarHost(snackbarHostState) }
+
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
