@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,9 +32,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.proyectonieve.data.Producto
 import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.network.RetrofitInstance
 import com.example.proyectonieve.ui.utils.validarCaracteres
 import com.example.proyectonieve.ui.utils.validarNumero
+import kotlinx.coroutines.launch
 
 
 val Categorias = listOf("Torta", "Galleta", "Individual")
@@ -48,6 +52,11 @@ fun AgregarProducto(navController: NavController) {
 
     var categoria by remember { mutableStateOf(Categorias.first()) }
     var isExpanded by remember { mutableStateOf(false) }
+
+    val scope = rememberCoroutineScope()
+    var isLoading by remember { mutableStateOf(false) }
+    var postError by remember { mutableStateOf<String?>(null) }
+    var postSuccess by remember { mutableStateOf(false) }
 
     var nombreError by remember { mutableStateOf(false) }
     var precioError by remember { mutableStateOf(false) }
@@ -156,7 +165,30 @@ fun AgregarProducto(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(Routes.Home)
+                postError = null
+                postSuccess = false
+                isLoading = true
+                scope.launch{
+                    try {
+                        val nuevoProducto = Producto(
+                            null,
+                            precio.toIntOrNull()?:0,
+                            nombreProducto.trim(),
+                            descripcion.trim(),
+                            imagen.trim(),
+                            categoria.trim()
+                        )
+                        val productoCreado = RetrofitInstance.productoApi.registrarProducto(nuevoProducto)
+                        postSuccess = true
+                        navController.navigate(Routes.Home)
+                    }catch (e:Exception){
+                        postError = "Error al guardar: ${e.message}"
+                        println("Error al registrar producto: $e")
+                    }finally {
+                        isLoading = false
+                    }
+                }
+
             },
             enabled = isFormValid,
             modifier = Modifier
