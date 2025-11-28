@@ -36,4 +36,5 @@ class ValidarAdminTest : StringSpec({
 
         SessionManager.esAdmin() shouldBe false
     }
+
 })

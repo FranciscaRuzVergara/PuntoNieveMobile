@@ -23,6 +23,10 @@ import com.example.proyectonieve.ui.utils.validarApellidos
 import com.example.proyectonieve.ui.utils.validarCorreo
 import com.example.proyectonieve.ui.utils.validarRut
 import com.example.proyectonieve.data.User
+import com.example.proyectonieve.sesion.SessionManager
+import com.example.proyectonieve.ui.Routes
+import com.example.proyectonieve.ui.network.RetrofitInstance
+import kotlinx.coroutines.launch
 
 @Composable
 fun PerfilScreen(
@@ -41,6 +45,8 @@ fun PerfilScreen(
     var correoError by remember { mutableStateOf(false) }
     var rutError by remember { mutableStateOf(false) }
     var passwordError by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
 
     Column(
         modifier = Modifier
@@ -182,7 +188,36 @@ fun PerfilScreen(
             Spacer(Modifier.height(30.dp))
 
             Button(
-                onClick = { },
+                onClick = {
+                    if (user != null && user.id != null &&
+                        !nombresError && !apellidosError && !correoError && !rutError && !passwordError
+                    ) {
+                        val updatedUser = user.copy(
+                            nombres = nombres,
+                            apellidos = apellidos,
+                            correo = correo,
+                            rut = rut,
+                            rol = rol,
+                            passwordHash = if (password.isNotEmpty()) password else user.passwordHash
+                        )
+
+                        scope.launch {
+                            try {
+                                val response = RetrofitInstance.userApi.actualizarUsuario(updatedUser.id!!, updatedUser)
+
+                                SessionManager.usuarioActual = response
+                                SessionManager.correoLogeado.value = response.correo
+                                SessionManager.rolLogeado.value = response.rol
+
+                                // Feedback visual o navegación
+                                navController.navigate(Routes.Home)
+                            } catch (e: Exception) {
+                                println("Error al actualizar: ${e.message}")
+                            }
+                        }
+                    }
+                },
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 35.dp)
