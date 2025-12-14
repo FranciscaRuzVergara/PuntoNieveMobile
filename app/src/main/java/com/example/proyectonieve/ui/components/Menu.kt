@@ -20,6 +20,8 @@ fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
 
     val esAdmin = SessionManager.rolLogeado.value == "Admin"
     val esGerenteProductos = SessionManager.rolLogeado.value == "GerenteProductos"
+    val esSuperAdmin = SessionManager.rolLogeado.value == "SuperAdmin"
+
     val esCliente = !esAdmin && !esGerenteProductos
 
     Box(
@@ -35,8 +37,7 @@ fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
             onDismissRequest = { expanded = false }
         ) {
 
-            /* (TODOS) */
-
+            //TODOS
 
             DropdownMenuItem(
                 text = { Text("Perfil") },
@@ -68,8 +69,8 @@ fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
                 }
             )
 
-            /* ADMIN*/
-            if (esAdmin) {
+            //ADMIN Y SUPERADMIN
+            if (esAdmin || esSuperAdmin) {
                 DropdownMenuItem(
                     text = { Text("Productos") },
                     leadingIcon = { Icon(Icons.Outlined.ShoppingCart, null) },
@@ -80,16 +81,18 @@ fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
                 )
             }
 
-            /* GERENTE DE PRODUCTOS*/
-            if (esGerenteProductos) {
-                DropdownMenuItem(
-                    text = { Text("Productos") },
-                    leadingIcon = { Icon(Icons.Outlined.ShoppingCart, null) },
-                    onClick = {
-                        expanded = false
-                        navController.navigate(Routes.AgregarProducto)
-                    }
-                )
+            //GERENTE DE PRODUCTOS Y SUPER ADMIN
+            if (esGerenteProductos || esSuperAdmin) {
+                if (!esSuperAdmin) {
+                    DropdownMenuItem(
+                        text = { Text("Productos") },
+                        leadingIcon = { Icon(Icons.Outlined.ShoppingCart, null) },
+                        onClick = {
+                            expanded = false
+                            navController.navigate(Routes.AgregarProducto)
+                        }
+                    )
+                }
 
                 DropdownMenuItem(
                     text = { Text("Misión") },
@@ -101,16 +104,18 @@ fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
                 )
             }
 
-            /* CLIENTE */
-            if (esCliente) {
-                DropdownMenuItem(
-                    text = { Text("Misión") },
-                    leadingIcon = { Icon(Icons.Outlined.Info, null) },
-                    onClick = {
-                        expanded = false
-                        navController.navigate(Routes.Mision)
-                    }
-                )
+            //CLIENTE y SUPERADMIN
+            if (esCliente || esSuperAdmin) {
+                if (!esGerenteProductos && !esSuperAdmin) {
+                    DropdownMenuItem(
+                        text = { Text("Misión") },
+                        leadingIcon = { Icon(Icons.Outlined.Info, null) },
+                        onClick = {
+                            expanded = false
+                            navController.navigate(Routes.Mision)
+                        }
+                    )
+                }
 
                 DropdownMenuItem(
                     text = { Text("Beneficios") },

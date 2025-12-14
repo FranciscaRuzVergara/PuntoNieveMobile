@@ -21,6 +21,9 @@ object SessionManager {
         fun esAdmin(): Boolean = rolLogeado.value == "Admin"
         fun esGerenteProductos(): Boolean = rolLogeado.value == "GerenteProductos"
 
+        fun esSuperAdmin(): Boolean = rolLogeado.value == "SuperAdmin"
+
+
 
         fun puedeCrearEditarProducto(): Boolean = esGerenteProductos()
         fun puedeEliminarProducto(): Boolean = esAdmin()

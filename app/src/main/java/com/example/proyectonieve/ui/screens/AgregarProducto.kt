@@ -29,18 +29,27 @@ val Categorias = listOf("Torta", "Galleta", "Individual")
 @Composable
 fun AgregarProducto(navController: NavController) {
 
-    val esAdmin = SessionManager.rolLogeado.value == "Admin"
-    val esGerenteProductos = SessionManager.rolLogeado.value == "GerenteProductos"
+    val rol = SessionManager.rolLogeado.value
+    val esSuperAdmin = rol == "SuperAdmin"
+    val esAdmin = rol == "Admin"
+    val esGerenteProductos = rol == "GerenteProductos"
+
+    // ✅ Permisos de pantalla
+    val puedeEntrar = esAdmin || esGerenteProductos || esSuperAdmin
+
+    // ✅ Permisos de acciones
+    val puedeEditar = esGerenteProductos || esSuperAdmin
+    val puedeEliminar = esAdmin || esSuperAdmin
 
     LaunchedEffect(Unit) {
-        if (!esAdmin && !esGerenteProductos) {
+        if (!puedeEntrar) {
             navController.navigate(Routes.Home) {
                 popUpTo(Routes.Home) { inclusive = true }
             }
         }
     }
 
-    if (!esAdmin && !esGerenteProductos) {
+    if (!puedeEntrar) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("No autorizado")
         }
@@ -62,7 +71,6 @@ fun AgregarProducto(navController: NavController) {
 
     val isFormValid = !nombreError && nombreProducto.isNotBlank() &&
             precio.isNotBlank() && !precioError
-
 
     var productoEditando by remember { mutableStateOf<Producto?>(null) }
 
@@ -108,7 +116,7 @@ fun AgregarProducto(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        if (esGerenteProductos) {
+        if (puedeEditar) {
             item {
                 Text(
                     text = if (productoEditando == null) "Agregar Producto" else "Editar Producto",
@@ -302,8 +310,8 @@ fun AgregarProducto(navController: NavController) {
         items(productos) { product ->
             ProductCard(
                 product = product,
-                puedeEditar = esGerenteProductos,
-                puedeEliminar = esAdmin,
+                puedeEditar = puedeEditar,
+                puedeEliminar = puedeEliminar,
                 onEdit = { p ->
                     productoEditando = p
                     nombreProducto = p.nombreProducto
@@ -315,9 +323,7 @@ fun AgregarProducto(navController: NavController) {
                     nombreError = !validarCaracteres(nombreProducto)
                     precioError = precio.isNotBlank() && !validarNumero(precio)
                 },
-                onDeleted = {
-                    cargarProductos()
-                }
+                onDeleted = { cargarProductos() }
             )
         }
 
