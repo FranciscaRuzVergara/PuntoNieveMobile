@@ -4,32 +4,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.proyectonieve.sesion.SessionManager
 import com.example.proyectonieve.ui.Routes
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 
-
 @Composable
-fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
+fun Menu(navController: NavController, snackbarHostState: SnackbarHostState) {
     var expanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+
+    val esAdmin = SessionManager.rolLogeado.value == "Admin"
+    val esGerenteProductos = SessionManager.rolLogeado.value == "GerenteProductos"
+    val esCliente = !esAdmin && !esGerenteProductos
 
     Box(
         modifier = Modifier,
@@ -44,17 +35,21 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
             onDismissRequest = { expanded = false }
         ) {
 
+            /* (TODOS) */
+
+
             DropdownMenuItem(
                 text = { Text("Perfil") },
-                leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
+                leadingIcon = { Icon(Icons.Outlined.Person, null) },
                 onClick = {
                     expanded = false
                     navController.navigate(Routes.Perfil)
                 }
             )
+
             DropdownMenuItem(
                 text = { Text("Home") },
-                leadingIcon = { Icon(Icons.Outlined.Home, contentDescription = null) },
+                leadingIcon = { Icon(Icons.Outlined.Home, null) },
                 onClick = {
                     expanded = false
                     scope.launch {
@@ -64,21 +59,20 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
                 }
             )
 
-
             DropdownMenuItem(
                 text = { Text("Cámara") },
-                leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
+                leadingIcon = { Icon(Icons.Outlined.Create, null) },
                 onClick = {
                     expanded = false
                     navController.navigate(Routes.Camara)
                 }
             )
 
-            if (SessionManager.esAdmin()) {
-
+            /* ADMIN*/
+            if (esAdmin) {
                 DropdownMenuItem(
                     text = { Text("Productos") },
-                    leadingIcon = { Icon(Icons.Outlined.ShoppingCart, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.ShoppingCart, null) },
                     onClick = {
                         expanded = false
                         navController.navigate(Routes.AgregarProducto)
@@ -86,11 +80,32 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
                 )
             }
 
+            /* GERENTE DE PRODUCTOS*/
+            if (esGerenteProductos) {
+                DropdownMenuItem(
+                    text = { Text("Productos") },
+                    leadingIcon = { Icon(Icons.Outlined.ShoppingCart, null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.AgregarProducto)
+                    }
+                )
 
-            else {
                 DropdownMenuItem(
                     text = { Text("Misión") },
-                    leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.Info, null) },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(Routes.Mision)
+                    }
+                )
+            }
+
+            /* CLIENTE */
+            if (esCliente) {
+                DropdownMenuItem(
+                    text = { Text("Misión") },
+                    leadingIcon = { Icon(Icons.Outlined.Info, null) },
                     onClick = {
                         expanded = false
                         navController.navigate(Routes.Mision)
@@ -99,7 +114,7 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
 
                 DropdownMenuItem(
                     text = { Text("Beneficios") },
-                    leadingIcon = { Icon(Icons.Outlined.Star, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.Star, null) },
                     onClick = {
                         expanded = false
                         navController.navigate(Routes.Formulario)
@@ -108,7 +123,7 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
 
                 DropdownMenuItem(
                     text = { Text("Cotización") },
-                    leadingIcon = { Icon(Icons.Outlined.Create, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.Create, null) },
                     onClick = {
                         expanded = false
                         navController.navigate(Routes.Cotizacion)
@@ -119,7 +134,8 @@ fun Menu(navController: NavController,snackbarHostState: SnackbarHostState) {
     }
 }
 
-            /********
+
+/********
             DropdownMenuItem(
                 text = { Text("Pedidos") },
                 leadingIcon = { Icon(Icons.Outlined.MailOutline, contentDescription = null) },

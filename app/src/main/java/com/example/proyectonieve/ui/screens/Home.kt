@@ -22,6 +22,7 @@ import coil.compose.AsyncImage
 import androidx.navigation.NavController
 import com.example.proyectonieve.ui.components.ProductCard
 import com.example.proyectonieve.data.Producto
+import com.example.proyectonieve.sesion.SessionManager
 import com.example.proyectonieve.ui.components.ClimaCard
 import com.example.proyectonieve.ui.network.RetrofitInstance
 import kotlinx.coroutines.launch
@@ -36,6 +37,9 @@ fun Home(navController: NavController) {
     var products by remember { mutableStateOf<List<Producto>>(emptyList()) }
     var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
+
+    val esAdmin = SessionManager.rolLogeado.value == "Admin"
+    val esGerenteProductos = SessionManager.rolLogeado.value == "GerenteProductos"
 
     LaunchedEffect(Unit) {
         scope.launch {

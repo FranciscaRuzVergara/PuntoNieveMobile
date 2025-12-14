@@ -1,5 +1,6 @@
 package com.example.proyectonieve.ui.network
 import com.example.proyectonieve.data.Producto
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ProductoApi {
@@ -16,6 +17,6 @@ interface ProductoApi {
         @PUT("api/producto/{id}")
         suspend fun actualizarProducto(@Path("id") id: Long, @Body producto: Producto): Producto
 
-        @DELETE("api/producto/{id}")
-        suspend fun eliminarProducto(@Path("id") id: Long)
+        @DELETE("/api/producto/{id}")
+        suspend fun eliminarProducto(@Path("id") id: Long): Response<Unit>
     }
