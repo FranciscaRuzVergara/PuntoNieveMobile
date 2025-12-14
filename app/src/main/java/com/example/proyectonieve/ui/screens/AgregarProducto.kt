@@ -305,7 +305,6 @@ fun AgregarProducto(navController: NavController) {
                 puedeEditar = esGerenteProductos,
                 puedeEliminar = esAdmin,
                 onEdit = { p ->
-                    // solo gerente debería llegar aquí
                     productoEditando = p
                     nombreProducto = p.nombreProducto
                     precio = p.precio.toString()

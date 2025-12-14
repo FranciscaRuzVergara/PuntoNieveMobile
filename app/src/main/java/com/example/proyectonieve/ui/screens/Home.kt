@@ -38,8 +38,7 @@ fun Home(navController: NavController) {
     var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
 
-    val esAdmin = SessionManager.rolLogeado.value == "Admin"
-    val esGerenteProductos = SessionManager.rolLogeado.value == "GerenteProductos"
+
 
     LaunchedEffect(Unit) {
         scope.launch {
