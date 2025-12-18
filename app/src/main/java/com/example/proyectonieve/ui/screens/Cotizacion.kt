@@ -1,5 +1,6 @@
 package com.example.proyectonieve.ui.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,7 +44,10 @@ val SaboresBizcocho = listOf("Vainilla", "Chocolate", "Red Velvet", "Limón")
 
 val OpcionesRelleno = listOf("Manjar", "Crema Pastelera", "Chocolate Blanco", "Nuez")
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class
+)
 @Composable
 fun Cotizacion(navController: NavController) {
     var nombreCliente by remember { mutableStateOf("") }
