@@ -34,10 +34,10 @@ fun AgregarProducto(navController: NavController) {
     val esAdmin = rol == "Admin"
     val esGerenteProductos = rol == "GerenteProductos"
 
-    // ✅ Permisos de pantalla
+
     val puedeEntrar = esAdmin || esGerenteProductos || esSuperAdmin
 
-    // ✅ Permisos de acciones
+
     val puedeEditar = esGerenteProductos || esSuperAdmin
     val puedeEliminar = esAdmin || esSuperAdmin
 
