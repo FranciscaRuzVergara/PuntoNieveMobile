@@ -238,7 +238,10 @@ fun FormularioScreen(navController: NavController) {
 
             Button(
                 onClick = {
-
+                    navController.navigate("home") {
+                        popUpTo("formulario") { inclusive = true }
+                        launchSingleTop = true
+                        }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
